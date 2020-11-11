@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <title>Practica 2</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="E.Aldana" />
+    <!--Practica 2: Palabras contadas con MAP-->
+    <script>
+      const max = 4;
+      const palabras = [];
+      const contador = new Map();
+      function myFunction() {
+        var palabra;
+
+        for (let index = 0; index < max; index++) {
+          let palabra = prompt('Dime una palabra: ', '');
+          palabras.push(palabra);
+        }
+
+        contarValores(palabras);
+        //mostrarCadena();
+      }
+      function contarValores(valores) {
+        var claveNombres = quitarRepetidos(valores);
+        for (let index = 0; index < valores.length; index++) {
+          var cantidad = valores.filter(function (valor, indice) {
+            return valor == valores[index];
+          });
+          contador.set(claveNombres[index], cantidad.length);
+        }
+        mostrarCadena();
+      }
+      function quitarRepetidos(array) {
+        let palabrasUnicas = [...new Set(array)];
+        var cadena = '';
+        //palabrasUnicas.sort((a, b) => a.localeCompare(b, 'es'));
+        //palabrasUnicas.reverse();
+        return palabrasUnicas;
+      }
+      function mostrarCadena() {
+        //var cadena = '| ';
+        for (let [clave,valor] of contador) {
+          //cadena += elemento + ' |';
+          console.log('Clave: ${clave}, Valor: ${valor}');
+        }
+        //alert('Lista de elementos: ' + cadena);
+      }
+      // function quitarRepetidos(value, index, self) {
+      //   return self.indexOf(value) === index;
+      // }
+      myFunction();
+    </script>
+  </head>
+  <body>
+    <h1>Práctica 2 Funciones con MAP contador</h1>
+  </body>
+</html>
