@@ -24,7 +24,7 @@ function getCookie(cname) {
       c = c.substring(1);
     }
     if (c.indexOf(name) == 0) {
-      return parseInt(c.substring(name.length, c.length));
+      return parseInt(c.substring(name.length, c.length), 10);
     }
   }
   //Si no existe
@@ -34,21 +34,23 @@ function getCookie(cname) {
     obtener el valor de nuestra cookie con nuestro get y aumentar el contador de visitas en 1.
     Si tiene más 10 visitas nuestra cookie se eliminará con el método de deleteCookie.
   */
+
 function checkCookie() {
   var contador = getCookie('visitas');
-  alert('Hola');
+  alert('Hola' + contador);
   //Si nuestro contador no tiene ningún valor, se creará la cookie, sino, actualizaremos el valor, el tiempo de expiración es 1 mes.
-  if (contador != '') {
+  if (contador !== '' || contador === 0) {
     alert('Tus visitas: ' + contador);
     contador += 1;
     setCookie('visitas', contador, 30);
+    //Si nuestras visitas superan las 10, debemos de eliminar la cookie:
     if (contador > 10) {
       deleteCookie();
     }
   } else {
     contador = 0;
-    //alert('Visitas: ' + contador);
-    if (contador != '' && contador != null) {
+    alert('Visitas: ' + contador);
+    if (contador !== '' && contador !== null) {
       setCookie('visitas', contador, 30);
     }
   }
@@ -57,4 +59,3 @@ function checkCookie() {
 function deleteCookie() {
   document.cookie = 'visitas=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
 }
-//window.onload(checkCookie);
