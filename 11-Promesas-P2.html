@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Práctica 2</title>
+    <script type="module">
+        //Importamos las funciones de nuestro script temporitzador, es necesario la directiva type="module"
+        import * as tempo from "./scripts/temporitzador.js";
+        //function asíncrona para contar hacia atras, valores por parámetro:
+        // número de inicio cuenta atrás, elemento, intervalo, y una función callback que se ejecutaría al final
+        async function cuenta(num,element,intval,escribirFinal){
+            
+            let cont=num;
+            if(element===''){
+                element="body";
+            }
+            if(intval==='' || isNaN(intval)){
+                intval=1000;
+            }
+            let promesa=new Promise((resolver,rechazar)=>{
+                let intervalo=setInterval(()=>{
+                    if(cont==0){
+                        if(intval<1000){
+                            resolver("Fin");
+                        }
+                        resolver(cont);
+                        clearInterval(intervalo);
+                    }
+                    tempo.escribirEnPantalla(cont,element);
+                    
+                    cont-=1;
+                },intval);
+            });
+            promesa.then((respuesta) => {
+                //tempo.escribirEnPantalla(respuesta,element);
+                if(escribirFinal!=='' && escribirFinal!==null){
+                    tempo.escribirEnPantalla(respuesta, element);
+                }
+            }).catch((error) => {
+                tempo.escribirEnPantalla(error.message);
+            });
+        }
+        //llamando a las funciones con los elementos de tipo clase, p1 y p2, también una función callback para escribir al final "Fin"
+        cuenta(60,".p2",100,tempo.escribirEnPantalla("Fin",".p2"));
+        cuenta(6,".p1",1000,"");
+        
+    </script>
+</head>
+<body>
+    <h1>Promesas Practica 2</h1>
+
+    <div class="p1">
+
+    </div>
+    <div class="p2">
+
+    </div>
+</body>
+</html>
