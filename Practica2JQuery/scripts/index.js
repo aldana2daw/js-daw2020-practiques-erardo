@@ -21,4 +21,30 @@ $(document).ready(function () {
 
   //Final clase highlight
   $("table tr td:contains('Henry')").addClass('highlight');
+
+  /**
+   * Práctica 3:
+   */
+  /**
+   * Filtrar History
+   */
+  $('table tr')
+    .find('td')
+    .filter(function () {
+      return $(this).text() === 'History';
+    })
+    .addClass('highlight');
+
+  /**
+   * Filtrar palabra et desde la primera columna:
+   */
+  $('table')
+    .eq(0)
+    .find('tr td')
+    .filter(function () {
+      let val = 'et';
+      return $(this).text().toLowerCase().indexOf(val.toLowerCase()) >= 0;
+    })
+    .nextUntil()
+    .addClass('highlight');
 });
